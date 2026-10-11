@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessica & Michael's Wedding</title>
+    <style>
+        :root {
+            --primary-color: #6B705C;
+            --accent-color: #A3B18A;
+            --bg-color: #F8F7F4;
+            --card-bg: #FFFFFF;
+            --text-color: #383838;
+            --light-text: #777777;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Georgia', serif;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 50px 30px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: var(--light-text);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin: 0 0 20px 0;
+            color: var(--primary-color);
+            font-weight: normal;
+        }
+
+        .date-location {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        /* Countdown Timer Styles */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+
+        .time-box span.number {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .time-box span.label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--light-text);
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Venue Section */
+        .section-title {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        .venue-details {
+            font-size: 0.95rem;
+            color: var(--light-text);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* RSVP Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+            background: #FAFAFA;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        form label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        form input, form select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        form button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+            font-family: inherit;
+            letter-spacing: 1px;
+        }
+
+        form button:hover {
+            background-color: #555948;
+        }
+
+        #success-message {
+            display: none;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <p class="subtitle">The Wedding of</p>
+        <h1>Jessica & Michael</h1>
+        
+        <div class="date-location">
+            <strong>Saturday, October 17, 2026</strong><br>
+            Grand Ballroom & Gardens — Boston, MA
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="countdown">
+            <div class="time-box">
+                <span class="number" id="days">00</span>
+                <span class="label">Days</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="hours">00</span>
+                <span class="label">Hours</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Mins</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Secs</span>
+            </div>
+        </div>
+
+        <!-- Venue Information -->
+        <div class="section-title">Schedule & Venue</div>
+        <div class="venue-details">
+            <strong>Ceremony:</strong> 3:30 PM at The Glass Atrium<br>
+            <strong>Reception:</strong> 5:30 PM at The Grand Ballroom<br>
+            <em>Dress Code: Black Tie Optional</em>
+        </div>
+
+        <!-- RSVP Form Section -->
+        <div class="section-title">Will You Celebrate With Us?</div>
+        <form id="rsvpForm" onsubmit="handleRSVP(event)">
+            <label for="name">Full Name(s):</label>
+            <input type="text" id="name" required placeholder="e.g., John & Jane Doe">
+
+            <label for="attendance">Response:</label>
+            <select id="attendance" required>
+                <option value="">Please select...</option>
+                <option value="Accepts">Joyfully Accept</option>
+                <option value="Declines">Regretfully Decline</option>
+            </select>
+
+            <label for="meal">Dietary Restrictions / Meal Preference:</label>
+            <input type="text" id="meal" placeholder="e.g., Vegetarian, Gluten-Free, None">
+
+            <button type="submit">Send RSVP</button>
+        </form>
+        <div id="success-message">Thank you! Your response has been recorded.</div>
+    </div>
+
+    <script>
+        // Set the wedding date and time (Year, Month index 0-11, Day, Hour, Minute)
+        const weddingDate = new Date("October 17, 2026 15:30:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.querySelector(".countdown").innerHTML = "<h3>The Wedding Day is Here!</h3>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Simple mock RSVP handler (Note: To save responses permanently, link this to a free service like Formspree.io)
+        function handleRSVP(event) {
+            event.preventDefault();
+            document.getElementById("rsvpForm").style.display = "none";
+            document.getElementById("success-message").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
